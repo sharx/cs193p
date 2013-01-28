@@ -27,30 +27,43 @@
 
 - (IBAction)flipCard:(UIButton *)sender {
   
+    //  If we need a deck make one
     if (!self.myDeck) {
         self.myDeck = [[PlayingCardDeck alloc]init];
     }
     
-    
-    PlayingCard *myCard = (PlayingCard *)[self.myDeck drawRandomCard];
-    
-    if (myCard) {
-        [sender setTitle:[myCard contents] forState:UIControlStateSelected];
+    //  If the card is already showing a suit, just flip it back over
+    if (sender.selected) {
         sender.selected = !sender.isSelected;
         self.flipCount++;
+        
     } else {
-        UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"All out of cards!"
-                                                         message:nil
-                                                        delegate:self
-                                               cancelButtonTitle:nil
-                                               otherButtonTitles:@"Deal again!", nil];
+    
+        //  Otherwise get a new card from the deck and show it
+        PlayingCard *myCard = (PlayingCard *)[self.myDeck drawRandomCard];
+    
+        if (myCard) {
+            [sender setTitle:[myCard contents] forState:UIControlStateSelected];
+            sender.selected = !sender.isSelected;
+            self.flipCount++;
         
-        [myAlert show];
+        } else {
         
-        self.myDeck = nil;
-        [self setFlipCount:0];
+            //  Oh noes! Out of cards!
+            UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"All out of cards!"
+                                                              message:nil
+                                                             delegate:nil
+                                                    cancelButtonTitle:nil
+                                                    otherButtonTitles:@"Deal again!", nil];
+        
+            [myAlert show];
+        
+            //  nil the deck and set the flipCount to 0
+            self.myDeck = nil;
+            [self setFlipCount:0];
     }
-   
+    }
+
 }
 
 
