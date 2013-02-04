@@ -84,7 +84,7 @@
 
 
 - (IBAction)dealCards:(id)sender {
-    //  Oh noes! Out of cards!
+    //  Tell the user we are starting a new game
     UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Starting a new game!"
                                                       message:nil
                                                      delegate:nil
@@ -93,7 +93,7 @@
     
     [myAlert show];
     
-    //  nil the deck and set the flipCount to 0
+    //  nil the game and reset our statusessess
     self.game = nil;
     [self setFlipCount:0];
     self.statusLabel.text = @"";
