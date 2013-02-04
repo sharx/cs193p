@@ -12,6 +12,11 @@
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
+//  I decided to put the status messages in the model. This is the class that knows about the data,
+//  that has the data, and is responsible for the score. This made it easy to just format the
+//  strings here. The ViewController can simply call the getter for the status message.
+
+//  I used defines for the status message formatting as it made the code more readable below.
 #define FLIP_MESSAGE @"Flipped up %@", card.contents
 #define MATCH_MESSAGE @"Matched %@ & %@ for %d points!", card.contents, otherCard.contents, (matchScore * MATCH_BONUS)
 #define NO_MATCH_MESSAGE @"%@ & %@ don't match! -%d points!", card.contents, otherCard.contents, MISMATCH_PENALTY
