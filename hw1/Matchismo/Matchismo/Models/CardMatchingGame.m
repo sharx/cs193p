@@ -12,9 +12,14 @@
 #define MISMATCH_PENALTY 2
 #define FLIP_COST 1
 
+#define FLIP_MESSAGE @"Flipped up %@", card.contents
+#define MATCH_MESSAGE @"Matched %@ & %@ for %d points!", card.contents, otherCard.contents, (matchScore * MATCH_BONUS)
+#define NO_MATCH_MESSAGE @"%@ & %@ don't match! -%d points!", card.contents, otherCard.contents, MISMATCH_PENALTY
+
 @interface CardMatchingGame ()
 @property (nonatomic)  NSMutableArray *cards;
 @property (nonatomic) int score;
+@property (nonatomic) NSString *statusString;
 @end
 
 @implementation CardMatchingGame
@@ -24,8 +29,16 @@
     if (!_cards) {
         _cards = [[NSMutableArray alloc] init];
     }
-    
+   
     return _cards;
+}
+
+- (NSString *)statusString {
+    if (!_statusString) {
+        _statusString = [[NSString alloc] init];
+    }
+    
+    return _statusString;
 }
 
 
@@ -36,10 +49,12 @@
     if (self) {
         for (int i = 0; i < cardCount; i++) {
             Card *card = [deck drawRandomCard];
+            
             if (!card) {
                 self = nil;
                 
             } else {
+                
                 self.cards[i] = card;
             }
         }
@@ -59,8 +74,12 @@
     
     //  Is the card playable?
     if (!card.isUnplayable) {
+      
         //  Look for a match
         if (!card.isFaceUp) {
+            
+            //  Let the user know they flipped a card
+            self.statusString = [NSString stringWithFormat:FLIP_MESSAGE];
             
             //  Enumerate the cards
             for (Card *otherCard in self.cards) {
@@ -75,11 +94,17 @@
                         card.unplayable = YES;
                         self.score += matchScore * MATCH_BONUS;
                         
+                        //  Tell the user what they matched
+                        self.statusString = [NSString stringWithFormat:MATCH_MESSAGE];
+                        
                     } else {
                         
                         //  If it wasn't a match pay the grim price
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
+                        
+                        //  Tell the user they didn't match anything
+                         self.statusString = [NSString stringWithFormat:NO_MATCH_MESSAGE];
                     }
                     
                     // No match so break out

@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 
 @end
 
@@ -27,11 +28,13 @@
 - (CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                           usingDeck:[[PlayingCardDeck alloc] init]];
+    
     return _game;
 }
 
 - (void)setCardButtons:(NSArray *)cardButtons {
     _cardButtons = cardButtons;
+    
     [self updateUI];
 }
 
@@ -52,10 +55,17 @@
         
         //  Dim unplayable cards so they look different
         cardButton.alpha = card.isUnplayable ? 0.3 : 1.0;
+        
+       
     }
     
     //  Update the score string
     self.scoreLabel.text = [NSString stringWithFormat:@"Score %d", self.game.score];
+    
+    //  Update the status string
+    self.statusLabel.text = self.game.statusString;
+    
+  
 }
 
 - (void)setFlipCount:(int)flipCount {
