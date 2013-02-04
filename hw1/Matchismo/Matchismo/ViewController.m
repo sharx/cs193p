@@ -13,12 +13,17 @@
 
 @interface ViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
-@property (nonatomic) int flipCount;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (nonatomic) CardMatchingGame *game;
+@property (nonatomic) NSInteger flipCount;
+@property (nonatomic) NSUInteger gameType;
+
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *gameTypeController;
+
+
 - (IBAction)dealCards:(id)sender;
 
 @end
@@ -73,7 +78,11 @@
     self.flipsLabel.text = [NSString stringWithFormat:@"Flips: %d", self.flipCount];
 }
 
+#pragma mark - IBActions
 - (IBAction)flipCard:(UIButton *)sender {
+    
+    //  Set the game type controller to inactive
+    self.gameTypeController.enabled = NO;
     
     // Let the model flip the cards, we just update the UI to show it
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
@@ -83,7 +92,13 @@
 }
 
 
+
+
 - (IBAction)dealCards:(id)sender {
+    
+    //  Set the game type controller to active
+    self.gameTypeController.enabled = YES;
+    
     //  Tell the user we are starting a new game
     UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Starting a new game!"
                                                       message:nil
@@ -99,4 +114,5 @@
     self.statusLabel.text = @"";
     [self updateUI];
 }
+
 @end
