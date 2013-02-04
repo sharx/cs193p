@@ -19,6 +19,7 @@
 @property (nonatomic) CardMatchingGame *game;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+- (IBAction)dealCards:(id)sender;
 
 @end
 
@@ -34,7 +35,6 @@
 
 - (void)setCardButtons:(NSArray *)cardButtons {
     _cardButtons = cardButtons;
-    
     [self updateUI];
 }
 
@@ -83,4 +83,20 @@
 }
 
 
+- (IBAction)dealCards:(id)sender {
+    //  Oh noes! Out of cards!
+    UIAlertView *myAlert = [[UIAlertView alloc] initWithTitle:@"Starting a new game!"
+                                                      message:nil
+                                                     delegate:nil
+                                            cancelButtonTitle:nil
+                                            otherButtonTitles:@"OK", nil];
+    
+    [myAlert show];
+    
+    //  nil the deck and set the flipCount to 0
+    self.game = nil;
+    [self setFlipCount:0];
+    self.statusLabel.text = @"";
+    [self updateUI];
+}
 @end
