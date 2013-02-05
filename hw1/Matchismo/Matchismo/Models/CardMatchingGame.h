@@ -15,7 +15,7 @@
 @property (nonatomic, readonly) NSString *statusString;
 
 //  Designated init
-- (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck;
+- (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck gameType:(NSInteger)gameType;
 
 - (void)flipCardAtIndex:(NSUInteger)index;
 

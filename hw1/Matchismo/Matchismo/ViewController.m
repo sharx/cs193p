@@ -15,13 +15,14 @@
 
 @property (nonatomic) CardMatchingGame *game;
 @property (nonatomic) NSInteger flipCount;
-@property (nonatomic) NSUInteger gameType;
+@property (nonatomic) NSInteger gameType;
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameTypeController;
+- (IBAction)changeGameType:(id)sender;
 
 
 - (IBAction)dealCards:(id)sender;
@@ -33,7 +34,8 @@
 //  If we need a game make one
 - (CardMatchingGame *)game {
     if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                          usingDeck:[[PlayingCardDeck alloc] init]];
+                                                          usingDeck:[[PlayingCardDeck alloc] init]
+                                                           gameType:self.gameType];
     
     return _game;
 }
@@ -93,6 +95,12 @@
 
 
 
+
+- (IBAction)changeGameType:(id)sender {
+    self.gameType = self.gameTypeController.selectedSegmentIndex;
+    self.game = nil;
+
+}
 
 - (IBAction)dealCards:(id)sender {
     

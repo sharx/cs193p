@@ -42,23 +42,25 @@
             score = 4;
         }
             
+    } else if ([otherCards count] == 2) {
+        PlayingCard *otherCard = [otherCards lastObject]; //  The lastObject method means we are never out of bounds!
+        PlayingCard *thirdCard = [otherCards objectAtIndex:0]; //  Get the first object
+        
+        //  Our scoring algorithm
+        if ([otherCard.suit isEqualToString:self.suit] && [thirdCard.suit isEqualToString:self.suit] && [otherCard.suit isEqualToString:thirdCard.suit]) {
+            score = 3;
+        } else if ((otherCard.rank == self.rank) && (otherCard.rank == self.rank) && (otherCard.rank == thirdCard.rank)) {
+            score = 12;
+        }
+        
     }
     // Return the score
     return score;
 }
         
-    
-    
-    
 
 
-
-
-
-
-
-
-#pragma mark - Instane methods
+#pragma mark - Instance methods
 - (NSString *)contents {
     
     return [[PlayingCard rankStrings][self.rank] stringByAppendingString:self.suit];
