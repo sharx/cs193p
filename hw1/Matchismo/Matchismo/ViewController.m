@@ -46,9 +46,20 @@
 }
 
 - (void)updateUI {
+    
+    UIImage *cardBackImage = [UIImage imageNamed:@"cardback.png"];
+    
     //  Cycle through the model and get each card
     for (UIButton *cardButton in self.cardButtons) {
         Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
+        
+        //  Set the card backs for face down cards
+        if (!card.isFaceUp) {
+            [cardButton setImage:cardBackImage forState:UIControlStateNormal];
+        } else {
+            [cardButton setImage:nil forState:UIControlStateNormal];
+        }
+       
         
         //  Set the title to the contents
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
