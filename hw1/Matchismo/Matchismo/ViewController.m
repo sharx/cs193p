@@ -10,6 +10,11 @@
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
 #import "CardMatchingGame.h"
+#import "ThreeCardMatchingGame.h"
+
+
+#define TWO_CARD_GAME 0
+#define THREE_CARD_GAME 1
 
 @interface ViewController ()
 
@@ -33,9 +38,16 @@
 
 //  If we need a game make one
 - (CardMatchingGame *)game {
-    if (!_game) _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                          usingDeck:[[PlayingCardDeck alloc] init]
-                                                           gameType:self.gameType];
+    if (!_game) {
+        if (self.gameType == TWO_CARD_GAME) {
+            _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                      usingDeck:[[PlayingCardDeck alloc] init]];
+                     
+        } else if (self.gameType == THREE_CARD_GAME) {
+            _game = [[ThreeCardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                      usingDeck:[[PlayingCardDeck alloc] init]];
+        }
+    }
     
     return _game;
 }
