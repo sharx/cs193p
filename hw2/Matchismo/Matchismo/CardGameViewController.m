@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 macshome. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "CardGameViewController.h"
 #import "PlayingCardDeck.h"
 #import "PlayingCard.h"
 #import "CardMatchingGame.h"
@@ -16,7 +16,7 @@
 #define TWO_CARD_GAME 0
 #define THREE_CARD_GAME 1
 
-@interface ViewController ()
+@interface CardGameViewController ()
 
 @property (nonatomic) CardMatchingGame *game;
 @property (nonatomic) NSInteger flipCount;
@@ -27,14 +27,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameTypeController;
+
 - (IBAction)changeGameType:(id)sender;
-
-
 - (IBAction)dealCards:(id)sender;
 
 @end
 
-@implementation ViewController
+@implementation CardGameViewController
 
 //  If we need a game make one
 - (CardMatchingGame *)game {
