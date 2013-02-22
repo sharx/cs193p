@@ -13,9 +13,9 @@
 #define FLIP_COST 1
 
 //  I used defines for the status message formatting as it made the code more readable below.
-#define FLIP_MESSAGE @"Flipped up %@", card.contents
-#define THREE_MATCH_MESSAGE @"%@ & %@ & %@ for %d points!", card.contents, firstCard.contents, secondCard.contents, (matchScore * MATCH_BONUS)
-#define NO_THREE_MATCH_MESSAGE @"%@ & %@ & %@ don't match!", card.contents, firstCard.contents, secondCard.contents
+#define FLIP_MESSAGE @"Selected %@", card.contents
+#define THREE_MATCH_MESSAGE @"Match for %d points!",  (matchScore * MATCH_BONUS)
+#define NO_THREE_MATCH_MESSAGE @"That's not a set!"
 
 @interface CardMatchingGame ()
 @property (nonatomic) NSMutableArray *cards;

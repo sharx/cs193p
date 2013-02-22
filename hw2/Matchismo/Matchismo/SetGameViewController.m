@@ -55,14 +55,18 @@
         [cardButton setAttributedTitle:[self formatCard:card] forState:UIControlStateSelected];
         [cardButton setAttributedTitle:[self formatCard:card] forState:UIControlStateSelected|UIControlStateDisabled];
         
+        
         //  Select only if it's faceup
-        cardButton.selected = card.isFaceUp;
+        cardButton.selected = !card.isFaceUp ? cardButton.backgroundColor = [UIColor clearColor] : (cardButton.backgroundColor = [UIColor colorWithRed:1 green:0 blue:0 alpha:.2]);
+        
         
         //  Make it untappable if isUnplayable
         cardButton.enabled = !card.isUnplayable;
         
         //  dissapear unplayable cards 
         cardButton.hidden = card.isUnplayable ? YES : NO;
+        
+  
         
         
     }
